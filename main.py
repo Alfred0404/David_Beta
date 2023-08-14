@@ -23,7 +23,7 @@ def get_tempo(track) :
 
 def handle_playlist(playlist) :
     threads = []
-    fade_out_duration = 5000
+    fade_duration = 5000
     desired_duration = 30000
     desired_tempo = 144
 
@@ -33,7 +33,7 @@ def handle_playlist(playlist) :
         music_name = music.split(".")[0]
 
         track = pydub.AudioSegment.from_mp3(music_path)[:desired_duration]
-        track = track.fade_in(fade_out_duration).fade_out(fade_out_duration)
+        track = track.fade_in(fade_duration).fade_out(fade_duration)
 
         music_tempo = get_tempo(music_path)
         rate = desired_tempo / music_tempo
@@ -52,7 +52,7 @@ def handle_playlist(playlist) :
         threads.append(thread)
 
         # Wait for the fade out to complete before moving on to the next track
-        time.sleep(abs((track.duration_seconds * 1000 - fade_out_duration) / 1000))
+        time.sleep(abs((track.duration_seconds * 1000 - fade_duration) / 1000))
 
     # Wait for all threads to finish
     for thread in threads:
