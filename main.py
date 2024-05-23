@@ -7,7 +7,6 @@ import time
 import numpy as np
 from os import listdir, remove
 from os.path import isfile, join
-import uuid
 
 mypath = "tracks/"
 playlist = [f for f in listdir(mypath) if isfile(join(mypath, f))]
@@ -41,11 +40,8 @@ def adjust_tempo(track, rate):
     return pydub.AudioSegment.from_file(temp_filename, format='FLAC')
 
 
-def handle_playlist(playlist):
+def handle_playlist(playlist, fade_duration=5000, desired_duration=30000, desired_tempo=200):
     threads = []
-    fade_duration = 5000  # 5s
-    desired_duration = 30000  # 30s
-    desired_tempo = 200
 
     for music in playlist:
         music_path = mypath + music
