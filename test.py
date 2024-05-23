@@ -5,7 +5,7 @@ import soundfile as sf
 import threading
 import time
 import numpy as np
-from os import listdir, remove
+from os import listdir
 from os.path import isfile, join
 import uuid
 
@@ -15,14 +15,6 @@ playlist = [f for f in listdir(mypath) if isfile(join(mypath, f))]
 
 def play_music(track):
     play(track)
-
-
-def delete_tmp_files(directory):
-    # remove file named temp.flac
-    try:
-        remove(f"{directory}/temp.flac")
-    except FileNotFoundError:
-        pass
 
 
 def get_tempo(track):
@@ -89,4 +81,3 @@ def handle_playlist(playlist):
 if __name__ == "__main__":
     print(playlist)
     handle_playlist(playlist)
-    delete_tmp_files("tmps")
